@@ -3,17 +3,158 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KPI 2026 GitHub Pages Template</title>
+    <title>Менеджер витрат</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="container">
-      <h1>KPI 2026 GitHub Pages Template</h1>
-      <p>This repository is a starter template for small coursework web applications.</p>
-      <p>Add markdown requirements under <code>requirements/</code>, then run the skill to turn this into a real app.</p>
-      <button id="reset-demo" type="button">Reset demo message</button>
-      <p id="status" class="status"></p>
-    </main>
-    <script type="module" src="./src/app.js"></script>
+    <!-- Ambient iOS Background -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div class="app-wrapper">
+      <header class="glass-panel">
+        <div class="logo-container">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+              <path d="M7 15h.01"></path>
+              <path d="M11 15h2"></path>
+            </svg>
+          </div>
+          <h1>Менеджер витрат</h1>
+        </div>
+        <div class="header-actions">
+          <button id="theme-toggle-btn" class="btn secondary">🌞 Світла тема</button>
+          <button id="add-expense-btn" class="btn primary">Додати витрату</button>
+          <button id="set-limits-btn" class="btn secondary">Встановити ліміти</button>
+          <button id="reset-demo-btn" class="btn outline">Завантажити демо</button>
+          <button id="clear-data-btn" class="btn danger">Очистити все</button>
+        </div>
+      </header>
+
+      <div class="dashboard">
+        <aside class="sidebar glass-panel">
+          <h2>Підсумки</h2>
+          <div class="total-expenses">
+            <span class="label">Загальна сума</span>
+            <span class="value" id="total-amount">0.00 грн</span>
+          </div>
+
+          <div class="chart-container" style="margin: 25px 0; height: 320px; position: relative;">
+            <canvas id="expense-chart"></canvas>
+          </div>
+
+          <div class="filters">
+            <h3>Фільтри</h3>
+            <div class="form-group">
+              <label for="filter-category">Категорія</label>
+              <select id="filter-category">
+                <option value="All">Усі категорії</option>
+                <option value="Їжа">Їжа</option>
+                <option value="Транспорт">Транспорт</option>
+                <option value="Освіта">Освіта</option>
+                <option value="Здоров'я">Здоров'я</option>
+                <option value="Розваги">Розваги</option>
+                <option value="Покупки">Покупки</option>
+                <option value="Інше">Інше</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="filter-date-start">Початкова дата</label>
+              <input type="date" id="filter-date-start">
+            </div>
+            <div class="form-group">
+              <label for="filter-date-end">Кінцева дата</label>
+              <input type="date" id="filter-date-end">
+            </div>
+            <button id="clear-filters-btn" class="btn text-btn">Скинути фільтри</button>
+          </div>
+
+          <div class="category-summary" id="category-summary-list">
+             <!-- Dynamically populated category totals and limit warnings -->
+          </div>
+        </aside>
+
+        <main class="main-content glass-panel">
+          <div class="list-header">
+            <h2>Список витрат</h2>
+          </div>
+          <div id="expense-list" class="expense-list">
+            <!-- Expenses go here -->
+          </div>
+          <div id="empty-state" class="empty-state hidden">
+            <p>Немає витрат для відображення</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Expense Modal -->
+    <div id="expense-modal" class="modal-overlay hidden">
+      <div class="modal-content glass-panel">
+        <h2 id="expense-modal-title">Додати витрату</h2>
+        <div id="expense-form-error" class="error-message hidden"></div>
+        <form id="expense-form">
+          <input type="hidden" id="expense-id">
+          <div class="form-group">
+            <label for="expense-name">Назва *</label>
+            <input type="text" id="expense-name" required minlength="3" maxlength="100">
+          </div>
+          <div class="form-group">
+            <label for="expense-amount">Сума (грн) *</label>
+            <input type="number" id="expense-amount" required min="0.01" max="1000000" step="0.01">
+          </div>
+          <div class="form-group">
+            <label for="expense-category">Категорія *</label>
+            <select id="expense-category" required>
+                <option value="">Оберіть категорію</option>
+                <option value="Їжа">Їжа</option>
+                <option value="Транспорт">Транспорт</option>
+                <option value="Освіта">Освіта</option>
+                <option value="Здоров'я">Здоров'я</option>
+                <option value="Розваги">Розваги</option>
+                <option value="Покупки">Покупки</option>
+                <option value="Інше">Інше</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="expense-date">Дата *</label>
+            <input type="date" id="expense-date" required>
+          </div>
+          <div class="form-group">
+            <label for="expense-desc">Опис</label>
+            <textarea id="expense-desc" maxlength="300"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn text-btn" id="cancel-expense-btn">Скасувати</button>
+            <button type="submit" class="btn primary">Зберегти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Limits Modal -->
+    <div id="limits-modal" class="modal-overlay hidden">
+      <div class="modal-content glass-panel">
+        <h2>Ліміти категорій</h2>
+        <div id="limits-form-error" class="error-message hidden"></div>
+        <form id="limits-form">
+          <div id="limits-inputs">
+             <!-- populated dynamically -->
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn text-btn" id="cancel-limits-btn">Скасувати</button>
+            <button type="submit" class="btn primary">Зберегти ліміти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./src/app.js" defer></script>
   </body>
 </html>

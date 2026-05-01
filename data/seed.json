@@ -1,0 +1,13 @@
+{
+  "expenses": [
+    { "title": "Продукти", "amount": 850.50, "category": "Їжа", "description": "Сільпо" },
+    { "title": "Проїзний", "amount": 300, "category": "Транспорт", "description": "Місячний проїзний" },
+    { "title": "Онлайн курс", "amount": 1500, "category": "Освіта", "description": "Курс по React" },
+    { "title": "Аптека", "amount": 450.25, "category": "Здоров'я", "description": "Вітаміни" },
+    { "title": "Кіно", "amount": 600, "category": "Розваги", "description": "Кіно і попкорн" }
+  ],
+  "limits": {
+    "Їжа": 5000,
+    "Розваги": 500
+  }
+}

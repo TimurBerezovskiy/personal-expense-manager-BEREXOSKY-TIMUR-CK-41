@@ -1,35 +1,30 @@
-# KPI 2026 GitHub Pages App Template
+# Personal Expense Manager
 
-Starter repository for small coursework web applications that are implemented from existing markdown requirements and deployed to GitHub Pages.
+A web application for tracking personal expenses, built from specific markdown requirements.
 
-## Intended use
+## Features
+- **Add, Edit, Delete Expenses**: Full CRUD operations.
+- **Categorization**: Sort expenses into predefined categories (Food, Transport, Education, Health, Entertainment, Shopping, Other).
+- **Filtering**: View expenses by specific category or date range.
+- **Budgeting Limits**: Set limits for individual categories and get warnings when limits are exceeded.
+- **Persistence**: All data is securely stored in your browser's local storage.
+- **Liquid Glass Design**: Premium and modern user interface utilizing glassmorphism aesthetics.
 
-Use this repository as a template for:
-- the teacher's demo application;
-- student repositories created after requirements are already written;
-- small GitHub Pages projects that must stay within static hosting constraints.
+## Technology Stack
+- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+).
+- **Storage**: `localStorage` (No backend required).
+- **Hosting**: GitHub Pages.
 
-## Suggested workflow
+## Deployment to GitHub Pages
+Since the app relies entirely on frontend technologies, it is ready to be hosted natively on GitHub Pages. 
+To deploy:
+1. Push this code to the `main` branch.
+2. The included GitHub Action workflow `.github/workflows/deploy-pages.yml` will automatically build and deploy the root directory to GitHub Pages.
 
-1. Create a new repository from this template.
-2. Add the project requirements as markdown under `requirements/`.
-3. Invoke the `requirements-to-github-pages` skill inside the new repository.
-4. Let the skill:
-   - assess feasibility;
-   - choose the simplest viable stack;
-   - document SDRs;
-   - implement the app;
-   - add demo data and reset flow;
-   - update deployment files.
+## Development & Usage
+- **Running Locally**: Simply open `index.html` in your browser. No build steps or servers are required.
+- **Demo Data**: Use the "Reset Demo Data" button in the app header to instantly load sample expenses and limits to explore the features.
 
-## Initial repository structure
-
-- `requirements/` - place the markdown requirements here
-- `docs/sdr/` - software decision records
-- `data/` - seed and demo data if needed
-- `.github/workflows/` - GitHub Pages deployment workflow
-
-## Notes
-
-This repository is intentionally minimal. It is not a finished application.
-It is a clean starting point for projects that will be generated from existing requirements.
+## Architecture & Requirements Document
+- Requirements can be found in `requirements/Requirements.md`.
+- Software Design Record (SDR) can be found in `docs/sdr/SDR.md`.
