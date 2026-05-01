@@ -1,6 +1,6 @@
 # Менеджер особистих витрат (Personal Expense Manager)
 
-[👉 **Спробувати застосунок (Live Demo)**](https://TimurBerezovskiy.github.io/personal-expense-manager-BEREXOSKY-TIMUR-CK-41/)
+[👉 **Спробувати застосунок (Live Demo)**](https://timurberezovskiy.github.io/personal-expense-manager-BEREZOVSKY-TIMUR-CK-41/)
 
 Вебзастосунок для обліку, збереження та контролю особистих витрат, розроблений згідно з вимогами навчального курсу.
 
